@@ -67,6 +67,70 @@ LinkedList.prototype.deleteLastNode = function () {
   secondLast.next = null;
 };
 
+//delete by key
+LinkedList.prototype.deleteByKey = function (key) {
+  if (!this.head) {
+    return;
+  }
+  if (this.head.data === key) {
+    this.head = this.head.next;
+    return;
+  }
+  let current = this.head;
+  // Below line I tried myself
+  // while(current.next && current.next.data !== key ){
+  // current =current.next;
+  // }
+  // if(!current.next){
+  //   console.log("No similar keys available")
+  //   return;
+  // }
+  // currentNode.next =currentNode.next.next
+
+  while (!current.next) {
+    if (current.next.data === key) {
+      current.next = current.next.next;
+      return;
+    }
+    current = current.next;
+  }
+  console.log("No node with Key found :", key);
+
+  // Don't directly transver this. head it will lost the original reference
+  // while (this.head.next) {
+  //   if (this.head.next.data === key) {
+  //     this.head.next = this.head.next.next;
+  //     return;
+  //   }
+  //   this.head = this.head.next;
+  // console.log("No node with key found:", key);
+  // }
+};
+
+//search operation by key
+LinkedList.prototype.searchByKey = function (key) {
+  let current = this.head;
+  while (current) {
+    if (current.data === key) {
+      return true;
+    }
+    current = current.next;
+  }
+  return false;
+};
+
+//Transverse
+
+LinkedList.prototype.printFunction = function () {
+  let current = this.head;
+  let listValues = [];
+  while (current) {
+    listValues.push(current.data);
+    current = current.next;
+  }
+  // Never return console in print function
+  return listValues?.length > 0 ? listValues.join("->") : "Data is empty";
+};
 const myLinkList = new LinkedList();
 myLinkList.deleteFirstNode();
 myLinkList.insertAtEnd(10);
@@ -74,6 +138,7 @@ myLinkList.insertAtEnd(20);
 myLinkList.insertAtEnd(30);
 myLinkList.insertAtEnd(40);
 myLinkList.insertInBetween(25, myLinkList?.head?.next);
-myLinkList.deleteFirstNode();
 myLinkList.deleteLastNode();
+myLinkList.deleteByKey(25);
 console.log("myLinkList", myLinkList);
+console.log('printFunction', myLinkList.printFunction())
