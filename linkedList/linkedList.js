@@ -131,6 +131,24 @@ LinkedList.prototype.printFunction = function () {
   // Never return console in print function
   return listValues?.length > 0 ? listValues.join("->") : "Data is empty";
 };
+
+// Little tricky
+//Reverse a linkedList
+
+LinkedList.prototype.reverse = function(){
+  let current = this.head;
+  let next = null;
+  let prev = null;
+  while(current){
+    console.log('current', current)
+    
+    next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+  }
+  this.head = prev
+}
 const myLinkList = new LinkedList();
 myLinkList.deleteFirstNode();
 myLinkList.insertAtEnd(10);
@@ -141,4 +159,7 @@ myLinkList.insertInBetween(25, myLinkList?.head?.next);
 myLinkList.deleteLastNode();
 myLinkList.deleteByKey(25);
 console.log("myLinkList", myLinkList);
+console.log('printFunction', myLinkList.printFunction())
+myLinkList.reverse();
+console.log('reverse', myLinkList)
 console.log('printFunction', myLinkList.printFunction())
